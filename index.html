@@ -116,7 +116,8 @@ footer{text-align:center;padding:28px 24px;border-top:1px solid var(--paper3);fo
 <div id="screen-done" class="screen">
   <div class="export-box">
     <p style="font-family:var(--serif);font-size:22px;color:var(--ink);margin-bottom:8px">Hai completato il questionario!</p>
-    <p style="font-size:13px;color:var(--ink3);line-height:1.6;margin-bottom:20px">Le tue risposte sono state salvate. Lorenzo ricevera tutto e iniziera a scrivere il tuo libro.</p>
+    <p style="font-size:13px;color:var(--ink3);line-height:1.6;margin-bottom:16px">Le tue risposte sono state salvate. Lorenzo ricevera tutto e iniziera a scrivere il tuo libro.</p>
+    <button class="btn btn-ghost" id="btn-torna-indietro" style="margin-bottom:20px">← Torna indietro a modificare le risposte</button>
     <div class="export-step">
       <p style="font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px">Passo 1 — Scarica le tue risposte</p>
       <p style="font-size:13px;color:var(--ink3);margin-bottom:12px">Clicca per scaricare un file con tutte le tue risposte.</p>
@@ -320,6 +321,19 @@ footer{text-align:center;padding:28px 24px;border-top:1px solid var(--paper3);fo
     if(id === 'screen-done'){
       var btnS = document.getElementById('btn-scarica-done');
       var btnE = document.getElementById('btn-email-done');
+      var btnT = document.getElementById('btn-torna-indietro');
+      if(btnT) btnT.onclick = function(){
+        sb.from('progressi').upsert({
+          cliente_id:cId,
+          domanda_corrente:allQ.length-1,
+          completato:false,
+          updated_at:new Date().toISOString()
+        },{onConflict:'cliente_id'}).then(function(){
+          curQ = allQ.length - 1;
+          showScreen('screen-questions');
+          renderQ();
+        });
+      };
       if(btnS) btnS.onclick = function(){
         var n = cUser&&cUser.user_metadata&&cUser.user_metadata.nome ? cUser.user_metadata.nome : cUser ? cUser.email : 'cliente';
         scarica(n, answers);
