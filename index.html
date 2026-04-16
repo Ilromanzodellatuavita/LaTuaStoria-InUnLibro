@@ -119,14 +119,16 @@ footer{text-align:center;padding:28px 24px;border-top:1px solid var(--paper3);fo
     <p style="font-size:13px;color:var(--ink3);line-height:1.6;margin-bottom:16px">Le tue risposte sono state salvate. Lorenzo ricevera tutto e iniziera a scrivere il tuo libro.</p>
     <button class="btn btn-ghost" id="btn-torna-indietro" style="margin-bottom:20px">← Torna indietro a modificare le risposte</button>
     <div class="export-step">
-      <p style="font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px">Passo 1 — Scarica le tue risposte</p>
-      <p style="font-size:13px;color:var(--ink3);margin-bottom:12px">Clicca per scaricare un file con tutte le tue risposte.</p>
+      <p style="font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px">Passo 1 — Scarica il file con le tue risposte</p>
+      <p style="font-size:13px;color:var(--ink3);margin-bottom:12px">Clicca il pulsante. Si scarica un file sul tuo computer — mettilo sul Desktop.</p>
       <button class="btn btn-primary" id="btn-scarica-done">Scarica le risposte</button>
-      <span id="scarica-confirm" style="font-size:12px;color:var(--gold);font-weight:600;display:none;margin-left:12px">Scaricato!</span>
+      <span id="scarica-confirm" style="font-size:12px;color:var(--gold);font-weight:600;display:none;margin-left:12px">File scaricato! Ora vai al Passo 2.</span>
     </div>
-    <div class="export-step" style="margin-top:12px">
-      <p style="font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px">Passo 2 — Invia le risposte a Lorenzo</p>
-      <p style="font-size:13px;color:var(--ink3);margin-bottom:12px">Si apre la tua email con oggetto e testo gia pronti. <strong>Allega il file scaricato al passo 1</strong> e premi Invia.</p>
+    <div class="export-step" style="margin-top:12px;border:2px solid var(--gold);border-radius:10px;padding:16px 20px">
+      <p style="font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px">Passo 2 — Invia il file a Lorenzo via email</p>
+      <p style="font-size:13px;color:var(--ink2);margin-bottom:4px;line-height:1.7">1. Clicca il pulsante qui sotto — si apre la tua email gia pronta</p>
+      <p style="font-size:13px;color:var(--ink2);margin-bottom:4px;line-height:1.7">2. Nella tua email clicca <strong>Allega file</strong> (la graffetta)</p>
+      <p style="font-size:13px;color:var(--ink2);margin-bottom:16px;line-height:1.7">3. Seleziona il file scaricato al Passo 1 e premi <strong>Invia</strong></p>
       <button class="btn btn-gold" id="btn-email-done">Apri email a Lorenzo</button>
     </div>
   </div>
