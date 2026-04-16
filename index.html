@@ -120,13 +120,13 @@ footer{text-align:center;padding:28px 24px;border-top:1px solid var(--paper3);fo
     <div class="export-step">
       <p style="font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px">Passo 1 — Scarica le tue risposte</p>
       <p style="font-size:13px;color:var(--ink3);margin-bottom:12px">Clicca per scaricare un file con tutte le tue risposte.</p>
-      <button class="btn btn-primary" data-action="scarica-mio">Scarica le risposte</button>
+      <button class="btn btn-primary" id="btn-scarica-done">Scarica le risposte</button>
       <span id="scarica-confirm" style="font-size:12px;color:var(--gold);font-weight:600;display:none;margin-left:12px">Scaricato!</span>
     </div>
     <div class="export-step" style="margin-top:12px">
       <p style="font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px">Passo 2 — Invia le risposte a Lorenzo</p>
       <p style="font-size:13px;color:var(--ink3);margin-bottom:12px">Si apre la tua email con oggetto e testo gia pronti. <strong>Allega il file scaricato al passo 1</strong> e premi Invia.</p>
-      <button class="btn btn-gold" data-action="invia-lorenzo">Apri email a Lorenzo</button>
+      <button class="btn btn-gold" id="btn-email-done">Apri email a Lorenzo</button>
     </div>
   </div>
 </div>
@@ -313,7 +313,27 @@ footer{text-align:center;padding:28px 24px;border-top:1px solid var(--paper3);fo
     });
   }
 
-  function showScreen(id){document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+  function showScreen(id){
+    document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0,0);
+    if(id === 'screen-done'){
+      var btnS = document.getElementById('btn-scarica-done');
+      var btnE = document.getElementById('btn-email-done');
+      if(btnS) btnS.onclick = function(){
+        var n = cUser&&cUser.user_metadata&&cUser.user_metadata.nome ? cUser.user_metadata.nome : cUser ? cUser.email : 'cliente';
+        scarica(n, answers);
+        var c = document.getElementById('scarica-confirm');
+        if(c){c.style.display='inline';setTimeout(function(){c.style.display='none';},3000);}
+      };
+      if(btnE) btnE.onclick = function(){
+        var n = cUser&&cUser.user_metadata&&cUser.user_metadata.nome ? cUser.user_metadata.nome : cUser ? cUser.email : '';
+        var o = encodeURIComponent(n+' - La mia Storia');
+        var b = encodeURIComponent('Ciao Lorenzo,\n\nho completato il questionario. Trovi le mie risposte nel file allegato.\n\n'+n);
+        window.location.href = 'mailto:'+CE+'?subject='+o+'&body='+b;
+      };
+    }
+  }
 
   function renderQ(){
     var q=allQ[curQ],tot=allQ.length;
